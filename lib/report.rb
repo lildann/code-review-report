@@ -4,11 +4,11 @@ class Report
     @greens = 0
     @ambers = 0
     @reds = 0
+    @uncounted = 0
+    @summary = []
   end
 
   def generate_report(results)
-    results_to_numbers(results)
-
     array_results = results.split(",").map { |number| number.to_i}
     array_results.each do |result|
       if result.between?(74, 100)
@@ -17,21 +17,32 @@ class Report
         @ambers += 1
       elsif result < 50
         @reds += 1
+      else
+        @uncounted += 1
       end
     end
-
-    if @greens >= 1
-      return "Green: #{@greens}"
-    elsif @ambers >= 1 
-      return "Amber: #{@ambers}"
-    elsif @reds >= 1
-      return "Red: #{@reds}"
-    end
+    evaluate_greens
+    evaluate_ambers
+    evaluate_reds
+    evaluate_uncounted
+    @summary.join("\n")
   end
 
   private 
-  def results_to_numbers(results)
-    array_results = results.split(",").map { |number| number.to_i}
+
+  def evaluate_greens
+    @summary << "Green: #{@greens}" if @greens >= 1
   end
 
+  def evaluate_ambers
+    @summary << "Amber: #{@ambers}" if @ambers >= 1 
+  end 
+
+  def evaluate_reds
+    @summary << "Red: #{@reds}" if @reds >= 1
+  end
+
+  def evaluate_uncounted 
+    @summary << "Uncounted: #{@uncounted}" if @uncounted >= 1
+  end
 end

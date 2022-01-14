@@ -18,4 +18,12 @@ describe Report do
   it "should evaluate a Red grade" do
     expect(report.generate_report("40")).to eq("Red: 1")
   end
+
+  it "should evaluates several scores of different grades" do
+    expect(report.generate_report("1,10,45,60,80,100")).to eq("Green: 2\nAmber: 1\nRed: 3")
+  end
+
+  it "should register uncounted grades" do
+    expect(report.generate_report("1,10,45,60,80,100,150")).to eq("Green: 2\nAmber: 1\nRed: 3\nUncounted: 1")
+  end
 end
