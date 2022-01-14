@@ -3,6 +3,7 @@ class Report
   def initialize
     @greens = 0
     @ambers = 0
+    @reds = 0
   end
 
   def generate_report(results)
@@ -14,6 +15,8 @@ class Report
         @greens += 1
       elsif result.between?(49, 74)
         @ambers += 1
+      elsif result < 50
+        @reds += 1
       end
     end
 
@@ -21,6 +24,8 @@ class Report
       return "Green: #{@greens}"
     elsif @ambers >= 1 
       return "Amber: #{@ambers}"
+    elsif @reds >= 1
+      return "Red: #{@reds}"
     end
   end
 

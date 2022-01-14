@@ -15,5 +15,7 @@ describe Report do
     expect(report.generate_report("73")).to eq("Amber: 1")
   end
 
-
+  it "should evaluate a Red grade" do
+    expect(report.generate_report("40")).to eq("Red: 1")
+  end
 end
